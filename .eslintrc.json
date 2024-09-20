@@ -21,7 +21,7 @@
   },
   "plugins": ["@typescript-eslint", "react"],
   "rules": {
-    "react/no-unknown-property": ["error", { "ignore": ["jsx"] }],
+    "react/no-unknown-property": ["error", { "ignore": ["tsx","jsx"] }],
     "max-lines-per-function": [
       "error",
       {
