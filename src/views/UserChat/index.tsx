@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 export default function UserChatView() {
   return (
     <Fragment>
-      <div className='flex flex-col align-items justify-center w-full h-full rounded-tr-2xl shadown-inner bg-gray-300'>
+      <div className='flex flex-col align-items justify-center w-full h-full rounded-tr-2xl  bg-customGray'>
         <div className=' h-[10%] rounded-tr-2xl flex items-center  justify-start'>
           <AvatarDemo
             className=' w-[44px] h-[44px] ml-4'
