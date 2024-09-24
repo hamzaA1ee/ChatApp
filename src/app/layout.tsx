@@ -4,6 +4,9 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Providers } from '@/providers';
 
+//toast imports
+import { Toaster } from '@/components/ui/toaster';
+
 //page import
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,9 +25,10 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <div className='flex flex-col h-screen w-full '>
-          <div className='w-screen h-[10%] '></div> {/* Header */}
+          {/* Header */}
           <Providers>{children}</Providers>
         </div>
+        <Toaster />
       </body>
     </html>
   );

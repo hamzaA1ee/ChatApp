@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 //view imports
-import ChatView from '@/views/Chat/ChatView';
+import ChatView from '@/views/Chat';
 
 export default async function Chat() {
   return (

@@ -41,6 +41,7 @@ const SignInView: FC<ISignInViewProps> = () => {
           );
           if (res.status === 201) {
             setCookieClientSideFn('accessToken', res.data?.accessToken);
+            setCookieClientSideFn('user', res.data?.currentUser);
             router.push('/chat');
           }
         } catch (error) {
