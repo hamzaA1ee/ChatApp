@@ -14,6 +14,7 @@ import axios from 'axios';
 //next imports
 import { useRouter } from 'next/navigation';
 import { setCookieClientSideFn } from '@/utils/storage.util';
+import Link from 'next/link';
 
 interface ISignInViewProps {}
 
@@ -44,6 +45,7 @@ const SignInView: FC<ISignInViewProps> = () => {
             setCookieClientSideFn('user', res.data?.currentUser);
             router.push('/chat');
           }
+          setDisabled(true);
         } catch (error) {
           setError('login failed');
           console.log(error);
@@ -123,6 +125,14 @@ const SignInView: FC<ISignInViewProps> = () => {
                 >
                   Sign in
                 </Button>
+                <div className='flex items-center justify-end mt-2'>
+                  <Link
+                    className='text-center'
+                    href={'/auth/register'}
+                  >
+                    Register an account?
+                  </Link>
+                </div>
               </div>
             </form>
           </div>

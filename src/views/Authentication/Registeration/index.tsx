@@ -12,6 +12,7 @@ import { registerationSchema } from '@/schema/user.schema';
 
 //axios
 import axios from 'axios';
+import Link from 'next/link';
 
 const RegistrationView = () => {
   const [errors, setErros] = useState('');
@@ -179,6 +180,14 @@ const RegistrationView = () => {
                 <p className='text-red-500 text-[12px] font-inter font-medium'>
                   {errors}
                 </p>
+              </div>
+              <div className='flex items-center justify-end mt-2'>
+                <Link
+                  className='text-center'
+                  href={'/auth/login'}
+                >
+                  Sign in?
+                </Link>
               </div>
             </form>
           </div>

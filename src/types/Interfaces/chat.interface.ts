@@ -5,3 +5,12 @@ export interface IRooms {
   name: string;
   type: string;
 }
+
+export interface IReceiveChat {
+  id: string;
+  roomId: string;
+  text: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+}

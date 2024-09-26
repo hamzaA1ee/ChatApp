@@ -114,9 +114,7 @@ export function DialogBox() {
           </div>
         </div>
 
-        <DialogFooter>
-          <Button type='submit'>Add</Button>
-        </DialogFooter>
+        <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
   );

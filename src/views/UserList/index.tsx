@@ -20,21 +20,24 @@ export default function UserListView() {
     },
   ]);
   useEffect(() => {
-    setTimeout(async () => {
-      const users = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/rooms`,
-        {
-          headers: {
-            Authorization: `Bearer ${getCookieFn('accessToken')}`,
+    try {
+      setTimeout(async () => {
+        const users = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/rooms`,
+          {
+            headers: {
+              Authorization: `Bearer ${getCookieFn('accessToken')}`,
+            },
           },
-        },
-      );
-      if (users.status == 200) {
-        setUser(users?.data);
-        setLoading(false);
-      }
-    }),
-      2000;
+        );
+        if (users.status == 200) {
+          setUser(users?.data);
+          setLoading(false);
+        }
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
   return (
     <Fragment>

@@ -29,7 +29,7 @@ export default function ChatView() {
         <div className='w-[30%]    '>
           <UserListView />
         </div>
-        <div className='w-[70%] shadow-2xl   '>
+        <div className='w-[70%]    '>
           <UserChatView />
         </div>
       </div>
