@@ -27,7 +27,7 @@ export default function UserChatView() {
   const [loading, setLoading] = useState<boolean>(true);
   const router = useSearchParams();
   const token = getCookieFn('user');
-  const userId = token && JSON.parse(token);
+  const user = token && JSON.parse(token);
   const id = router.get('id');
   const [msg, setMsg] = useState('');
 
@@ -66,7 +66,9 @@ export default function UserChatView() {
       },
     );
     clientSocket.on('RECEIVED_MESSAGE', (e: IReceiveChat) => {
+      console.log('receiving messages');
       console.log(e);
+      setChats(prev => [...prev, e]);
     });
   }, [id]);
 
@@ -104,7 +106,7 @@ export default function UserChatView() {
                 <ChatBubble
                   key={chat.id}
                   msg={chat.text}
-                  sentBy={userId == chat.createdBy ? true : false}
+                  sentBy={user.id == chat.createdBy ? true : false}
                 />
               ))}
             </div>
