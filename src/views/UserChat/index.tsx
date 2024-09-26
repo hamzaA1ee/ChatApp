@@ -24,7 +24,6 @@ import { IReceiveChat } from '@/types/Interfaces/chat.interface';
 
 export default function UserChatView() {
   const [chats, setChats] = useState<IReceiveChat[] | []>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const router = useSearchParams();
   const token = getCookieFn('user');
   const user = token && JSON.parse(token);
@@ -44,7 +43,6 @@ export default function UserChatView() {
 
       if (prev.status == 200) {
         setChats(prev.data);
-        console.log(chats);
       }
     } catch (error) {
       console.log(error);
@@ -52,7 +50,7 @@ export default function UserChatView() {
   };
   useEffect(() => {
     getPrevMessage();
-  }, [id]);
+  }, [id, chats]);
 
   useEffect(() => {
     clientSocket.emit(
