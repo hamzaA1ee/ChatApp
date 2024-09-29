@@ -1,5 +1,6 @@
 // import type { NextRequest } from "next/server";
 import { NextRequest, NextResponse } from 'next/server';
+import toast from 'react-hot-toast';
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get('accessToken')?.value;
@@ -18,6 +19,7 @@ export function middleware(req: NextRequest) {
   }
 
   if (!token && protectedRoutes.includes(pathname)) {
+    toast('Session has expired');
     return NextResponse.redirect(new URL('/auth/login', req.url));
   }
 
