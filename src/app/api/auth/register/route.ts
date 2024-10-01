@@ -9,13 +9,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { UserEntity } from '@/entity/User.entity';
 
 //interface imports
-import { isUserType } from '@/types/Interfaces/user.interface';
+import { isUserRegisterType } from '@/types/Interfaces/user.interface';
 import { DataSource, Repository } from 'typeorm';
 
 export async function POST(req: NextRequest) {
   try {
     const body: any = await req.json();
-    if (!isUserType(body))
+    if (!isUserRegisterType(body))
       return NextResponse.json({ msg: 'Invalid body type' }, { status: 400 });
 
     const AppDataSource: DataSource = await getDataSource();
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
         email: body.email,
       },
     });
-    if (exists)
+    if (exists.length > 0)
       return NextResponse.json({ msg: 'user already exists' }, { status: 409 });
 
     const hashedPassword: string = await bcrypt.hash(body.password, 10);

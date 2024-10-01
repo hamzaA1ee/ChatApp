@@ -40,9 +40,9 @@ const SignInView: FC<ISignInViewProps> = () => {
               password: formik.values.password,
             },
           );
-          if (res.status === 201) {
-            setCookieClientSideFn('accessToken', res.data?.accessToken);
-            setCookieClientSideFn('user', res.data?.currentUser);
+          if (res.status === 200) {
+            setCookieClientSideFn('accessToken', res.data?.token);
+
             router.push('/chat');
           }
           setDisabled(true);
@@ -100,7 +100,9 @@ const SignInView: FC<ISignInViewProps> = () => {
                   >
                     Password
                   </label>
+                  <Link href={'/auth/forgot'}>Forgot Password?</Link>
                 </div>
+
                 <div className='mt-1'>
                   <input
                     id='password'
