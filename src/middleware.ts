@@ -8,7 +8,7 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl.clone();
 
   if (pathname === '/') {
-    return NextResponse.redirect(new URL('/chat', req.url));
+    return NextResponse.redirect(new URL('/', req.url));
   }
   const publicRoutes = ['/auth/login', '/auth/register'];
 

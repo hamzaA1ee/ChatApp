@@ -2,7 +2,7 @@ import { getDataSource } from '@/data-source';
 import { ForgotEntity } from '@/entity/Forgot.entity';
 import { UserEntity } from '@/entity/User.entity';
 import { isForgotType } from '@/types/Interfaces/user.interface';
-import { generateOTP, mailSender } from '@/utils/mailSender.utils';
+import { generateOTP, mailSender } from '@/utils/mailSender.util';
 import { NextRequest, NextResponse } from 'next/server';
 import { DataSource, Repository } from 'typeorm';
 
@@ -29,8 +29,6 @@ export async function POST(req: NextRequest) {
     user.time = new Date(now.getTime() + 3 * 60 * 1000);
 
     const res: UserEntity = await userRepe.save(user);
-
-  
 
     const emailSent: boolean = await mailSender(
       body.email,

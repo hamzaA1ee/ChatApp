@@ -1,6 +1,8 @@
 import { DataSource } from 'typeorm';
 import { UserEntity } from './entity/User.entity';
 import { ForgotEntity } from './entity/Forgot.entity';
+import { UserRoomEntity } from './entity/UserRoom.entity';
+import { FriendEntity } from './entity/Friend.entity';
 
 export const AppDataSource = new DataSource({
   type: 'mysql',
@@ -11,7 +13,7 @@ export const AppDataSource = new DataSource({
   database: `${process.env.NEXT_PUBLIC_TYPEORM_DATABASE}`,
   synchronize: true,
   logging: true,
-  entities: [UserEntity, ForgotEntity],
+  entities: [UserEntity, ForgotEntity, UserRoomEntity, FriendEntity],
   subscribers: [],
   migrations: [],
 });

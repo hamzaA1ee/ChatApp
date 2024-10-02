@@ -6,14 +6,10 @@ export class RoomEntity {
   id: string | undefined;
 
   @Column()
-  participants: string[];
-
-  @Column()
   createdTime: Date;
 
-  constructor(participants: string[], createdTime: Date) {
+  constructor(createdTime: Date) {
     this.id = undefined;
-    this.participants = participants;
     this.createdTime = createdTime;
   }
 }

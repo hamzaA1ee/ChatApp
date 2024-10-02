@@ -1,3 +1,6 @@
+import { ITokenPayLoad } from '@/types/Interfaces/user.interface';
+import jwt from 'jsonwebtoken';
+
 /**
  * General utility functions.
  */
@@ -79,4 +82,12 @@ export const replaceAll = (
     throw new Error('required parameters not provided');
 
   return str.replace(new RegExp(search, 'g'), replacement);
+};
+
+// decrypt token and verifies them
+
+export const getTokenData = async (token: string): Promise<ITokenPayLoad> => {
+  const data = await jwt.verify(token, `${process.env.NEXT_PUBLIC_JWT_SECRET}`);
+
+  return data as ITokenPayLoad;
 };

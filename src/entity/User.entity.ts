@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { ForgotEntity } from './Forgot.entity';
+import { UserRoomEntity } from './UserRoom.entity';
 
 @Entity()
 export class UserEntity {
@@ -26,6 +27,9 @@ export class UserEntity {
 
   @Column({ type: 'timestamp', nullable: true })
   time: Date | undefined;
+
+  @OneToMany(() => UserRoomEntity, userRoom => userRoom.user)
+  userRooms: UserRoomEntity[] | undefined;
 
   constructor(
     firstName: string,

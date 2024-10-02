@@ -85,6 +85,13 @@ export interface IForgotVerify {
   code: string;
 }
 
+export interface ITokenPayLoad {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 export const IUserRegisterUpdateType = (body: any): body is IUserRegister => {
   return (
     ((body as IUserRegister).firstName !== undefined ||

@@ -50,7 +50,6 @@ export async function POST(req: NextRequest) {
       },
       `${process.env.NEXT_PUBLIC_JWT_SECRET}`,
     );
-    console.log('token', token);
 
     return NextResponse.json({ token }, { status: 200 });
   } catch (error) {
