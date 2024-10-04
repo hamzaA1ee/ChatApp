@@ -10,12 +10,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command';
+} from '../components/ui/command';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 
 import { DialogBox } from './DialogBox';
-import { IRooms } from '@/types/Interfaces/chat.interface';
+import { IRooms } from '../types/Interfaces/chat.interface';
 import { UserListSkeleton } from './UserListSkeleton';
 import { useRouter } from 'next/navigation';
 

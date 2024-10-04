@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 //formik imports
 import { useFormik, FormikProvider } from 'formik';
 //schema imports
-import { registerationSchema } from '@/schema/user.schema';
+import { registerationSchema } from '../../../schema/user.schema';
 
 //axios
 import axios from 'axios';

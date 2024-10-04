@@ -3,17 +3,27 @@ import { UserEntity } from './entity/User.entity';
 import { ForgotEntity } from './entity/Forgot.entity';
 import { UserRoomEntity } from './entity/UserRoom.entity';
 import { FriendEntity } from './entity/Friend.entity';
+import { RoomEntity } from './entity/Room.entity';
+import { MessageEntity } from './entity/Message.entity';
+
 
 export const AppDataSource = new DataSource({
   type: 'mysql',
-  host: `${process.env.NEXT_PUBLIC_TYPEORM_HOST}`,
-  port: parseInt(`${process.env.NEXT_PUBLIC_TYPEORM_PORT}`),
-  username: `${process.env.NEXT_PUBLIC_TYPEORM_USERNAME}`,
-  password: `${process.env.NEXT_PUBLIC_TYPEORM_PASSWORD}`,
-  database: `${process.env.NEXT_PUBLIC_TYPEORM_DATABASE}`,
+  host: `localhost`,
+  port: 3306,
+  username: `root`,
+  password: `zenkoders`,
+  database: `zenkoder`,
   synchronize: true,
   logging: true,
-  entities: [UserEntity, ForgotEntity, UserRoomEntity, FriendEntity],
+  entities: [
+    UserEntity,
+    ForgotEntity,
+    UserRoomEntity,
+    FriendEntity,
+    RoomEntity,
+    MessageEntity,
+  ],
   subscribers: [],
   migrations: [],
 });

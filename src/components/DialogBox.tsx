@@ -1,5 +1,7 @@
 //components imports
-import { Button } from '@/components/ui/button';
+'use client';
+import { getTokenData } from '@/utils/helpers.util';
+import { Button } from '../components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -7,13 +9,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { clientSocket } from '@/socket';
-import { IUser } from '@/types/Interfaces/user.interface';
+} from '../components/ui/dialog';
+import { Input } from '../components/ui/input';
+import { clientSocket } from '../socket';
+import { IUser } from '../types/Interfaces/user.interface';
 
 //utils imports
-import { getCookieFn } from '@/utils/storage.util';
+import { getCookieFn } from '../utils/storage.util';
 
 //axios imports
 import axios from 'axios';
@@ -29,12 +31,16 @@ export function DialogBox() {
   const [users, setUsers] = useState<IUser[]>();
 
   const userStringObj = getCookieFn('user');
-  const userObj = userStringObj && JSON.parse(userStringObj);
+  let userObj: any;
+  (async () => {
+    const token = getCookieFn('accessToken');
+    userObj = await getTokenData(token || '');
+  })();
   useEffect(() => {
     (async () => {
       try {
         const result = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/users/search/${search}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/user/get/${search}`,
           {
             headers: {
               Authorization: `Bearer ${getCookieFn('accessToken')}`,
@@ -44,7 +50,8 @@ export function DialogBox() {
         if (result.status != 200 || result.data.length == 0)
           setResult('no users found');
 
-        setUsers(result.data);
+        setUsers(result.data?.filteredFriends);
+        console.log(result.data.user);
       } catch (error) {
         console.log(error);
       }
@@ -91,7 +98,7 @@ export function DialogBox() {
           <div className='bg-green rounded-md shadow-md w-full h-full'>
             {users?.length !== 0 ? (
               users
-                ?.filter(user => user.id !== userObj.id) // Filter out the current user
+                ?.filter(user => user.id !== userObj?.id) // Filter out the current user
                 .map(user => (
                   <div
                     key={user.id}

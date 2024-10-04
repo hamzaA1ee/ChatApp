@@ -7,15 +7,12 @@ export function middleware(req: NextRequest) {
 
   const { pathname } = req.nextUrl.clone();
 
-  if (pathname === '/') {
-    return NextResponse.redirect(new URL('/', req.url));
-  }
   const publicRoutes = ['/auth/login', '/auth/register'];
 
   const protectedRoutes = ['/', '/chat'];
 
   if (token && publicRoutes.includes(pathname)) {
-    return NextResponse.redirect(new URL('/', req.url));
+    return NextResponse.redirect(new URL('/chat', req.url));
   }
 
   if (!token && protectedRoutes.includes(pathname)) {

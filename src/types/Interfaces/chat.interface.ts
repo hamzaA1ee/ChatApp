@@ -4,6 +4,7 @@ export interface IRooms {
   id: string;
   name: string;
   type: string;
+  participant:string;
 }
 
 export interface IReceiveChat {

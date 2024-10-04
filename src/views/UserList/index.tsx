@@ -16,6 +16,7 @@ export default function UserListView() {
       created_at: '',
       id: '',
       name: '',
+      participant: '',
       type: '',
     },
   ]);
@@ -23,7 +24,7 @@ export default function UserListView() {
     try {
       setTimeout(async () => {
         const users = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/rooms`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/chat/room/getAll`,
           {
             headers: {
               Authorization: `Bearer ${getCookieFn('accessToken')}`,
@@ -31,7 +32,8 @@ export default function UserListView() {
           },
         );
         if (users.status == 200) {
-          setUser(users?.data);
+          setUser(users?.data.rooms);
+          console.log(users.data);
           setLoading(false);
         }
       }, 2000);

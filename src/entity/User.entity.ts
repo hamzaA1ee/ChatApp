@@ -28,8 +28,7 @@ export class UserEntity {
   @Column({ type: 'timestamp', nullable: true })
   time: Date | undefined;
 
-  @OneToMany(() => UserRoomEntity, userRoom => userRoom.user)
-  userRooms: UserRoomEntity[] | undefined;
+  
 
   constructor(
     firstName: string,

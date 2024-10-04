@@ -86,8 +86,15 @@ export const replaceAll = (
 
 // decrypt token and verifies them
 
-export const getTokenData = async (token: string): Promise<ITokenPayLoad> => {
-  const data = await jwt.verify(token, `${process.env.NEXT_PUBLIC_JWT_SECRET}`);
+export const getTokenData = async (
+  token: string,
+): Promise<ITokenPayLoad | null> => {
+  try {
+    const data = await jwt.verify(token, `${'HAMZA ALI'}`);
 
-  return data as ITokenPayLoad;
+    return data as ITokenPayLoad;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

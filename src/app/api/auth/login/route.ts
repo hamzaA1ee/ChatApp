@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 
     const AppDataSource: DataSource = await getDataSource();
     const userRepo: Repository<UserEntity> =
-      AppDataSource.getRepository(UserEntity);
+      await AppDataSource.getRepository(UserEntity);
 
     const user: UserEntity | null = await userRepo.findOneBy({
       email: body.email,
@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ token }, { status: 200 });
   } catch (error) {
+    console.log(error)
     return NextResponse.json({ error }, { status: 500 });
   }
 }
