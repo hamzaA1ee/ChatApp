@@ -28,7 +28,6 @@ export async function GET(
       )
       .getMany();
 
-    console.log(user);
     const friendRepo: Repository<FriendEntity> =
       AppDataSource.getRepository(FriendEntity);
     const friends: FriendEntity[] = await friendRepo
@@ -38,7 +37,7 @@ export async function GET(
         { userId: tokenData.id, friendId: tokenData.id },
       )
       .getMany();
-    console.log('friends', friends);
+   
 
     if (friends.length == 0)
       return NextResponse.json({ filteredFriends: user }, { status: 200 });

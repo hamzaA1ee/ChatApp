@@ -33,7 +33,7 @@ export function DialogBox() {
   let userObj: any;
   (async () => {
     const token = getCookieFn('accessToken');
-    console.log('token', token);
+
     userObj = await getTokenData(token || '');
     console.log(userObj);
   })();
@@ -52,7 +52,6 @@ export function DialogBox() {
           setResult('no users found');
 
         setUsers(result.data?.filteredFriends);
-        console.log(result.data.user);
       } catch (error) {
         console.log(error);
       }
@@ -72,6 +71,7 @@ export function DialogBox() {
     );
   };
   return (
+    <>
     <Dialog>
       <DialogTrigger asChild>
         <Button
@@ -124,5 +124,6 @@ export function DialogBox() {
         <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
+    </>
   );
 }

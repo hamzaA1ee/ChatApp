@@ -14,6 +14,9 @@ export class MessageEntity {
   @Column()
   msg: string;
 
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdTime!: Date;
+
   constructor(roomId: string, createdBy: string, msg: string) {
     this.roomId = roomId;
     this.createdBy = createdBy;

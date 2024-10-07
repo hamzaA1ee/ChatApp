@@ -24,7 +24,7 @@ const io = new Server(server, {
 //sockets
 
 io.on('connection', async (socket: Socket) => {
-  console.log('A user connected');
+  console.log('A user connected', socket.id);
   //getting the token
 
   const AppDataSource = await getDataSource();
@@ -74,7 +74,6 @@ io.on('connection', async (socket: Socket) => {
 
       //once room created joins the room
       socket.join(res?.id || ''); // to join that room
-      console.log(roomId, 'connected');
     } catch (error) {
       console.log(error);
     }
@@ -83,12 +82,13 @@ io.on('connection', async (socket: Socket) => {
   //creates a message in db and emits msg in to the room
   socket.on('send-message', async ({ roomId, msg }) => {
     try {
+      console.log(socket.id, 'sending msg');
       const token = socket.handshake.headers.authorization?.split(' ')[1];
       const data = await getTokenData(token || '');
       if (!data) return console.log('invalid user token');
 
       //sends message to roomId
-      socket.to(roomId).emit('receive-message', { msg });
+      io.to(roomId).emit('receive-message', { msg });
 
       //saves the message in db
       const Message = new MessageEntity(roomId, data.id, msg);

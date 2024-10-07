@@ -95,7 +95,8 @@ export const getTokenData = async (
   }
 
   try {
-    const data = jwt.verify(token, 'HAMZA ALI'); // Secret must match the signing secret
+    const data = jwt.verify(token, 'HAMZA ALI');
+    //  Secret must match the signing secret
     return data as ITokenPayLoad;
   } catch (error) {
     console.error('Token verification error:', error); // Log the error message

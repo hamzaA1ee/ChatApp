@@ -12,4 +12,5 @@ export interface IReceiveChat {
   roomId: string;
   msg: string;
   createdBy: string;
+  createdTime: Date;
 }

@@ -13,7 +13,7 @@ export const ChatBubble = ({
     : 'rounded-ee-xl rounded-s-xl';
 
   const bubbleColor: string = sentBy ? 'bg-[#E8B86D]' : 'bg-[#FCDE70]';
-
+  console.log(sentBy);
   return (
     <Fragment>
       <div className={`flex items-start ${sender}  gap-2.5 `}>
