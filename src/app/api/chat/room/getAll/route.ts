@@ -1,7 +1,6 @@
 import { getDataSource } from '@/data-source';
 import { RoomEntity } from '@/entity/Room.entity';
 import { getTokenData } from '@/utils/helpers.util';
-import { error } from 'console';
 import { NextRequest, NextResponse } from 'next/server';
 import { DataSource, Repository } from 'typeorm';
 

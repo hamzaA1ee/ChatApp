@@ -21,19 +21,22 @@ import { clientSocket } from '@/socket';
 
 import { getCookieFn } from '@/utils/storage.util';
 import { IReceiveChat } from '@/types/Interfaces/chat.interface';
+import { getTokenData } from '../../utils/helpers.util';
+import { ITokenPayLoad } from '@/types/Interfaces/user.interface';
 
 export default function UserChatView() {
   const [chats, setChats] = useState<IReceiveChat[] | []>([]);
   const router = useSearchParams();
-  const token = getCookieFn('user');
-  const user = token && JSON.parse(token);
-  const id = router.get('id');
+  const token = getCookieFn('accessToken');
+  let tokenData: ITokenPayLoad | null;
+  const id = router.get('id'); //roomId
   const [msg, setMsg] = useState('');
 
   const getPrevMessage = async () => {
     try {
+      tokenData = await getTokenData(token || '');
       const prev = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/messages/room/${id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/chat/msg/get/${id}`,
         {
           headers: {
             Authorization: `Bearer ${getCookieFn('accessToken')}`,
@@ -42,7 +45,9 @@ export default function UserChatView() {
       );
 
       if (prev.status == 200) {
-        setChats(prev.data);
+        setChats(prev.data.msgs);
+        console.log(prev.data.msgs);
+        console.log('token data', tokenData);
       }
     } catch (error) {
       console.log(error);
@@ -50,39 +55,43 @@ export default function UserChatView() {
   };
   useEffect(() => {
     getPrevMessage();
-  }, [id, chats]);
+  }, [id]);
 
   useEffect(() => {
+    console.log('room id reading');
     clientSocket.emit(
-      'JOIN_SINGLE_ROOM',
+      'single_room',
       {
-        type: 'direct',
         roomId: id,
       },
       (res: any) => {
-        res && console.log('Room joined', id);
+        console.log('Room joined', id);
       },
     );
-    clientSocket.on('RECEIVED_MESSAGE', (e: IReceiveChat) => {
-      console.log('receiving messages');
-      console.log(e);
-      setChats(prev => [...prev, e]);
-    });
   }, [id]);
+
+  useEffect(() => {
+    clientSocket.on('receive-message', (msg: IReceiveChat) => {
+      console.log('receiving messages');
+      console.log(msg);
+      setChats(prev => [...prev, msg]);
+    });
+    console.log(chats);
+  }, []);
 
   const handleSubmitClick = async () => {
     if (msg == '') return toast('Message box is empty');
     clientSocket.emit(
-      'NEW_MESSAGE',
+      'send-message',
       {
         roomId: id,
-        message: msg,
+        msg: msg,
       },
       (res: any) => {
         res && console.log('msg sent');
-        setMsg('');
       },
     );
+    setMsg('');
   };
 
   return (
@@ -103,8 +112,10 @@ export default function UserChatView() {
               {chats.map(chat => (
                 <ChatBubble
                   key={chat.id}
-                  msg={chat.text}
-                  sentBy={user.id == chat.createdBy ? true : false}
+                  msg={chat.msg}
+                  sentBy={
+                    tokenData && tokenData.id == chat.createdBy ? true : false
+                  }
                 />
               ))}
             </div>

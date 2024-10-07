@@ -6,7 +6,6 @@ import { FriendEntity } from './entity/Friend.entity';
 import { RoomEntity } from './entity/Room.entity';
 import { MessageEntity } from './entity/Message.entity';
 
-
 export const AppDataSource = new DataSource({
   type: 'mysql',
   host: `localhost`,

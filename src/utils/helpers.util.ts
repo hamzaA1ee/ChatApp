@@ -89,12 +89,16 @@ export const replaceAll = (
 export const getTokenData = async (
   token: string,
 ): Promise<ITokenPayLoad | null> => {
-  try {
-    const data = await jwt.verify(token, `${'HAMZA ALI'}`);
+  if (!token) {
+    console.log('No token provided');
+    return null;
+  }
 
+  try {
+    const data = jwt.verify(token, 'HAMZA ALI'); // Secret must match the signing secret
     return data as ITokenPayLoad;
   } catch (error) {
-    console.log(error);
+    console.error('Token verification error:', error); // Log the error message
     return null;
   }
 };

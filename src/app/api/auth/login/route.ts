@@ -48,12 +48,12 @@ export async function POST(req: NextRequest) {
         firstName: user.firstName,
         lastName: user.lastName,
       },
-      `${process.env.NEXT_PUBLIC_JWT_SECRET}`,
+      `${'HAMZA ALI'}`,
     );
 
     return NextResponse.json({ token }, { status: 200 });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return NextResponse.json({ error }, { status: 500 });
   }
 }

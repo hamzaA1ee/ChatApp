@@ -4,14 +4,12 @@ export interface IRooms {
   id: string;
   name: string;
   type: string;
-  participant:string;
+  participant: string;
 }
 
 export interface IReceiveChat {
   id: string;
   roomId: string;
-  text: string;
+  msg: string;
   createdBy: string;
-  createdAt: string;
-  updatedAt: string;
 }

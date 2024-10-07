@@ -30,11 +30,12 @@ export function DialogBox() {
   const [result, setResult] = useState('');
   const [users, setUsers] = useState<IUser[]>();
 
-  const userStringObj = getCookieFn('user');
   let userObj: any;
   (async () => {
     const token = getCookieFn('accessToken');
+    console.log('token', token);
     userObj = await getTokenData(token || '');
+    console.log(userObj);
   })();
   useEffect(() => {
     (async () => {
@@ -60,11 +61,10 @@ export function DialogBox() {
 
   const handleAddFriend = (id: string, name: string) => {
     clientSocket.emit(
-      'CREATE_ROOM',
+      'create_room',
       {
-        type: 'direct',
-        participants: [id],
-        name: `${name} chats ${userObj.firstName}`,
+        participantId: id,
+        name: `${name} chats ${userObj?.firstName}`,
       },
       (res: any) => {
         toast('New friend added');

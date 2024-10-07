@@ -13,8 +13,6 @@ export const createRoom = async () => {
       await AppDataSource.getRepository(UserEntity);
     const userRoomRepo: Repository<UserRoomEntity> =
       await AppDataSource.getRepository(UserRoomEntity);
-
-      
   } catch (error) {
     console.log(error);
     return error;

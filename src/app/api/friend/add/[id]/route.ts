@@ -20,7 +20,8 @@ export async function POST(
     const AppDataSource: DataSource = await getDataSource();
     const friendRepo: Repository<FriendEntity> =
       await AppDataSource.getRepository(FriendEntity);
-      if(!user) return NextResponse.json({error:'invalid token'},{status:401})
+    if (!user)
+      return NextResponse.json({ error: 'invalid token' }, { status: 401 });
 
     const createdFriend = new FriendEntity(user?.id, id);
     const res: FriendEntity = await friendRepo.save(createdFriend);

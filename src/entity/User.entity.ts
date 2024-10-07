@@ -28,8 +28,6 @@ export class UserEntity {
   @Column({ type: 'timestamp', nullable: true })
   time: Date | undefined;
 
-  
-
   constructor(
     firstName: string,
     lastName: string,

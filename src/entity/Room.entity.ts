@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-
 @Entity()
 export class RoomEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -9,18 +8,18 @@ export class RoomEntity {
   @Column()
   name: string;
   @Column()
-  createdBy:string;
+  createdBy: string;
 
   @Column()
-  participant:string;
+  participant: string;
 
   @Column()
   createdTime: Date;
 
-  constructor(name: string,createdBy:string,participant:string) {
+  constructor(name: string, createdBy: string, participant: string) {
     this.createdTime = new Date();
-    this.createdBy=createdBy;
-    this.participant=participant;
+    this.createdBy = createdBy;
+    this.participant = participant;
     this.name = name;
   }
 }

@@ -14,12 +14,6 @@ const server = http.createServer(app);
 app.use(cors());
 
 // DB INITIALIZATION
-let AppDataSource: DataSource;
-getDataSource()
-  .then(dataSource => {
-    AppDataSource = dataSource;
-  })
-  .catch(error => console.error(error));
 
 const io = new Server(server, {
   cors: {
@@ -27,23 +21,13 @@ const io = new Server(server, {
   },
 });
 
-//server initialization
-const PORT = process.env.PORT || 3001;
-server.listen(PORT, async () => {
-  try {
-    console.log('Database connection established successfully');
-  } catch (error) {
-    console.error('Error starting the server:', error);
-    process.exit(1);
-  }
-});
-
 //sockets
 
-io.on('connection', (socket: Socket) => {
+io.on('connection', async (socket: Socket) => {
   console.log('A user connected');
   //getting the token
 
+  const AppDataSource = await getDataSource();
   //creating repos for interacting Dbs
   const roomRepo: Repository<RoomEntity> =
     AppDataSource.getRepository(RoomEntity);
@@ -86,10 +70,11 @@ io.on('connection', (socket: Socket) => {
           { createdBy: data.id, participantId: data.id },
         )
         .getOne();
-      console.log(res);
+      // console.log(res);
 
       //once room created joins the room
       socket.join(res?.id || ''); // to join that room
+      console.log(roomId, 'connected');
     } catch (error) {
       console.log(error);
     }
@@ -117,4 +102,15 @@ io.on('connection', (socket: Socket) => {
   socket.on('disconnect', () => {
     console.log('A user disconnected');
   });
+});
+
+//server initialization
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, async () => {
+  try {
+    console.log('Database connection established successfully');
+  } catch (error) {
+    console.error('Error starting the server:', error);
+    process.exit(1);
+  }
 });
